@@ -5,6 +5,7 @@ import sys
 import pyttsx3
 import random
 import os
+import time
 
 TOKEN = "NzY0ODg3MDIzNTA0MzI2NjY4.X4MyjQ.kcP1iLzAxz4j8P4X2gF0eBtuBEI"
 
@@ -167,15 +168,17 @@ async def jost(ctx):
 
 
 @bot.command()
-async def versuh(ctx, text):
+async def versuh(ctx, *text):
+    print(text)
+    jost = 'DetlefJoost'
     print(ctx.author.name)
     engine = pyttsx3.init()
-    filename = 'cache/{}_{}.mp3'.format(text, random.randint(0, 10000))
-    engine.save_to_file(text, filename)
+    filename = 'cache/{}.mp3'.format(time.time())
+    engine.save_to_file(' '.join(text), filename)
     engine.runAndWait()
 
     channel = ctx.author.voice.channel
-    if not ctx.author.name == 'DetlefJoost':
+    if ctx.author.name is not None:
         vc = await channel.connect()
         # vc.play(discord.FFmpegPCMAudio(executable='c:/users/jannis/desktop/coding/projects/amongus/requestbot/ffmpeg/bin/ffmpeg.exe',
         #                               source='c:/users/jannis/desktop/coding/projects/amongus/requestbot/{}'.format(filename)))
@@ -186,6 +189,25 @@ async def versuh(ctx, text):
         #                               source='c:/users/jannis/desktop/coding/projects/amongus/requestbot/jost.mp3'))
         vc.play(discord.FFmpegPCMAudio(executable=os.path.join(DIR, 'ffmpeg/bin/ffmpeg.exe'), source='jost.mp3'))
 
+    while vc.is_playing():
+        await asyncio.sleep(1)
+    await vc.disconnect()
+
+    os.remove(filename)
+
+
+@bot.command()
+async def awsl(ctx):
+    print('awsl')
+
+    engine = pyttsx3.init()
+    filename='cache/{}.mp3'.format(time.time())
+    engine.save_to_file('awsl', filename)
+    engine.runAndWait()
+
+    channel = ctx.author.voice.channel
+    vc = await channel.connect()
+    vc.play(discord.FFmpegPCMAudio(executable=os.path.join(DIR, 'ffmpeg/bin/ffmpeg.exe'), source=filename))
     while vc.is_playing():
         await asyncio.sleep(1)
     await vc.disconnect()
