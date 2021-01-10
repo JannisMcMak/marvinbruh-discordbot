@@ -104,7 +104,7 @@ async def limit(ctx, arg1: int):
 async def code(ctx, arg1: str):
     if 4 <= len(arg1) <= 6:
         await ctx.send("AmongUs Code: {}".format(arg1))
-        await bot.change_presence(activity=discord.Game(name="AmongUs Code: {}".format(arg1)))
+        await bot.change_presence(activity=discord.Game(name="Code: {}".format(arg1)))
 
         engine = pyttsx3.init()
         filename = 'cache/{}_{}.mp3'.format(arg1, random.randint(0, 10000))
