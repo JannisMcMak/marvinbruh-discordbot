@@ -1,0 +1,516 @@
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Livvic:wght@100;700&display=swap" rel="stylesheet">
+
+        <style>
+            h1 { 
+                text-align: center;
+                color: rgb(34, 40, 54);
+                margin-bottom: 0px;
+                margin-top: -20px;
+            }
+            body {
+                text-align: center;
+                font-family: Livvic;
+                overflow-x: hidden;
+                overflow-y: scroll;
+                box-sizing: content-box;
+            }
+            .split {
+                margin-top: 150px;
+                margin-bottom: 4%;
+                height: 500px;
+                width: 48%;
+                position: fixed;
+                
+                top: 0;
+                overflow-x: hidden;
+                border: 5px white solid;
+                border-radius: 15px;
+            }
+            .left {
+                left: 0;
+                background-color: rgb(34, 40, 54);
+                color: white;
+                margin-left: 17px;
+
+                padding-top: 400px;
+                position: absolute;
+            }
+            .right {
+                right: 0;
+                background-color: rgb(34, 40, 54);
+                color: white;
+                margin-right: 17px;
+                padding-top: 400px;;
+                position: absolute;
+            }
+            .centered {
+                position: absolute;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+            }
+            h4{
+                color: rgb(34, 40, 54);
+                margin-top: 0;
+                margin-bottom: 0;
+                font-weight: 200;
+                font-size: 20px;
+            }
+    
+            input:focus, select:focus, textarea:focus, button:focus {
+                outline: none;
+            } 
+            button {
+                font-family: Livvic;
+                background: transparent;
+                border: 2px solid white;
+                border-radius: 50px;
+                padding: 8px 15px;
+                color: white;
+                cursor: pointer;
+                font-weight: bold;
+
+                overflow: hidden;
+                position: relative;
+
+                -webkit-transition: all 0.4s;
+                -moz-transition: all 0.4s;
+                transition: all 0.4s;
+            }      
+            button:hover{
+                color: rgb(34, 40, 54);
+                background-color:white;
+
+            }
+            button:after{
+                content: '';
+            }
+            .btn {
+                font-weight: 80;
+                width: 200px;
+                font-size: 25px;
+                border-color: white;
+            }
+            .grid-container {
+                display: grid;
+                grid-gap: 20px 150px;
+                grid-template-columns: auto auto;
+                margin-top: 25px;
+            }
+            input {
+                background: transparent;
+                border: 2px solid white;
+                border-radius: 50px;
+                padding: 8px 15px;
+                color: white;
+            }
+            ::placeholder {
+                font-family: Livvic;
+                color: rgba(255, 255, 255, 0.514);
+            }
+            select {
+                background: transparent;
+                border: 2px solid white;
+                border-radius: 50px;
+                color: white;
+                padding: 8px 15px;
+                cursor: pointer;
+            }
+            option {
+              color: rgb(34, 40, 54);
+
+            }
+            .header {
+                text-align: center;
+                background-color: white;
+                color: white;
+                border-radius: 50px;
+                align-items: center;
+                padding: 0px;
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+            .mp3head{
+                padding-top: 70px;
+            }
+            .cnlsubmit {
+                color: rgb(34, 40, 54);
+            }
+            #channelselect{
+                color: rgb(34, 40, 54);
+            }
+            span {
+                font-weight: bold;
+                color: rgb(34, 40, 54);
+                font-size: 13px;
+            }
+            #popup {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                width: 105%;
+                height: 150%;
+                margin: auto auto;
+                margin-left: -2.5%;
+                margin-top: -400px;
+                overflow: hidden;
+                color: rgb(34, 40, 54);
+
+                background-color: rgba(34, 40, 54, 0.61);
+                backdrop-filter: blur(5px);
+            }
+            .popup-content {
+                margin: auto auto;
+                padding: 20px;
+                border: 2px solid rgb(34, 40, 54);
+                border-radius: 50px;
+                background-color: white;
+                left: 35%;
+                top: 25%;
+                margin: auto auto;
+                width: 30%;
+                height: 25%;
+                margin-top: 25%;
+                padding-top: 5%;
+            }
+            #change-cnl {
+                cursor: pointer;
+                margin-left: 10px;
+            }
+            #save {
+                display: block;
+                color: rgb(34, 40, 54);
+                border-color: rgb(34, 40, 54);
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #channelselect {
+                color: rgb(34, 40, 54);
+                font-size: 20px;
+            }
+
+            /* navbar */
+            #menuToggle{
+                display: block;
+                position: relative;
+                top: 20px;
+                left: 20px;
+                
+                z-index: 1;
+                
+                -webkit-user-select: none;
+                user-select: none;
+            }
+            #menuToggle a{
+                text-decoration: none;
+                color: white;
+                
+                transition: color 0.3s ease;
+            }
+            #menuToggle a:hover{
+                background-color: white;
+                color: rgb(34, 40, 54);
+            }
+            #menuToggle input{
+                display: block;
+                width: 40px;
+                height: 32px;
+                position: absolute;
+                top: -7px;
+                left: -5px;
+                cursor: pointer;
+                opacity: 0;
+                z-index: 2;
+                -webkit-touch-callout: none;
+            }
+            #menuToggle span{
+                display: block;
+                width: 33px;
+                height: 4px;
+                margin-bottom: 5px;
+                position: relative;
+                
+                background: rgb(34, 40, 54);
+                border-radius: 3px;
+                
+                z-index: 1;
+                
+                transform-origin: 4px 0px;
+                
+                transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                            background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+                            opacity 0.55s ease;
+            }
+            #menuToggle span:first-child{
+                transform-origin: 0% 0%;
+            }
+            #menuToggle span:nth-last-child(2){
+                transform-origin: 0% 0%;
+            }
+            #menuToggle input:checked ~ span{
+                opacity: 1;
+                transform: rotate(45deg) translate(-2px, -1px);
+                background: white;
+            }
+            #menuToggle input:checked ~ span:nth-last-child(3){
+                opacity: 0;
+                transform: rotate(0deg) scale(0.2, 0.2);
+            }
+            #menuToggle input:checked ~ span:nth-last-child(2){
+                transform: rotate(-45deg) translate(0, -1px);
+            }
+            #menu{
+                position: absolute;
+                width: 100%;
+                height: 970px;
+
+                margin: -100px 0 0 -100px;
+                padding: 50px;
+                padding-top: 125px;
+                
+                background: rgb(34, 40, 54);
+                list-style-type: none;
+                -webkit-font-smoothing: antialiased;
+                
+                transform-origin: 0% 0%;
+                transform: translate(-100%, 0);
+                
+                transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+            }
+
+            #menu li{
+                padding: 10px 0;
+                font-size: 22px;
+            }
+
+            #menuToggle input:checked ~ ul{
+                transform: none;
+            }
+        
+        </style>
+        <title>Dashboard</title>
+    </head>
+    <body>
+    <nav role="navigation">
+        <div id="menuToggle">
+          <input type="checkbox" />
+          <span></span>
+          <span></span>
+          <span></span>
+          <ul id="menu">
+            <a href="https://marvinbruhbot.jannismcmak.repl.co/gedichte"><li>Gedichte</li></a>
+            <a href="https://marvinbruhbot.jannismcmak.repl.co/mp3s"><li>Mp3s</li></a>
+            <a href="https://github.com/JannisMcMak/marvinbruh-discordbot"><li>Source Code</li></a>
+            <a href="https://marvinbruh-dashboard.jannismcmak.repl.co/login"><li>Logout</li></a>
+           </ul>
+        </div>
+      </nav>
+
+    
+        
+            <h1>Official webview for MarvinBruh bot</h1>
+        <div class="header">
+            <div class="header2">
+            <h4>Logged in as <i id="username">{{ username }}</i></h4>
+            </div>
+            <h4>Channel: <i id="cnl">Auto</i><span id="change-cnl">Change</span></h4>
+
+        </div>
+        <div class="split left">
+            <div class="centered">
+                <h2>TTS control</h2>
+                <div class="tts">
+                    <h3>#versuh</h3>
+                    <form action="/tts/versuh">
+                        <input type="text" placeholder="Text" name="text">
+                        <button type="submit">Speak</button>
+                    </form>
+                </div>
+                <div class="tts">
+                    <h3>#versuhe</h3>
+                    <form action="/tts/versuhe">
+                        <input type="text" placeholder="Text" name="text">
+                        <button type="submit">Speak</button>
+                    </form>
+                </div>
+                <div class="tts">
+                    <h3>#versuht</h3>
+                    <form action="/tts/versuht">
+                        <input type="text" placeholder="Text" name="text">
+                        <button type="submit">Speak</button>
+                    </form>
+                </div>
+                <div class="tts">
+                    <h3>#versuhi</h3>
+                    <form action="/tts/versuhi">
+                        <input type="text" placeholder="Text" name="text">
+                        <button type="submit">Speak</button>
+                    </form>
+                </div>
+                <div class="tts">
+                    <h3>#bitch</h3>
+                    <form action="/tts/bitch">
+                        <input type="text" placeholder="Name" name="name">
+                        <select name="level">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <button type="submit">Speak</button>
+                    </form>
+                </div>
+                <div class="tts">
+                    <h3>#bitcht</h3>
+                    <form action="/tts/bitcht">
+                        <input type="text" placeholder="Name" name="name">
+                        <select name="level">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                        <button type="submit">Speak</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="split right">
+            <div class="centered">
+                <h2 class="mp3head">Mp3s</h2>
+                <div class="grid-container">
+                <form action="/mp3/jost">
+                    <button class="btn" type="submit">Jost</button>
+                </form>
+                <form action="/mp3/justus">
+                    <button class="btn" type="submit">Justus</button>
+                </form>
+                <form action="/mp3/audio">
+                    <button class="btn" type="submit">Bruh</button>
+                </form>
+                <form action="/mp3/ewok">
+                    <button class="btn" type="submit">Ewok</button>
+                </form>
+                <form action="/mp3/horn">
+                    <button class="btn" type="submit">Horn</button>
+                </form>
+                <form action="/mp3/yo">
+                    <button class="btn" type="submit">Yo</button>
+                </form>
+                <form action="/mp3/standing">
+                    <button class="btn" type="submit">Standing</button>
+                </form>
+                <form action="/mp3/cück">
+                    <button class="btn" type="submit">Cock</button>
+                </form>
+                <form action="/mp3/pizzaball">
+                    <button class="btn" type="submit">Pizzaball</button>
+                </form>
+                <form action="/mp3/lego">
+                    <button class="btn" type="submit">Lego</button>
+                </form>
+                <form action="/mp3/teenx">
+                    <button class="btn" type="submit">Teenx</button>
+                </form>
+                <form action="/mp3/letonle">
+                    <button class="btn" type="submit">Letonle</button>
+                </form>
+                <form action="/mp3/chiefkeef">
+                    <button class="btn" type="submit">Chiefkeef</button>
+                </form>
+                <form action="/mp3/sad">
+                    <button class="btn" type="submit">Sad</button>
+                </form>
+                <form action="/mp3/laugh">
+                    <button class="btn" type="submit">Laugh</button>
+                </form>
+                <form action="/mp3/runthatback">
+                    <button class="btn" type="submit">Runthatback</button>
+                </form>
+                <form action="/mp3/conrad">
+                    <button class="btn" type="submit">Conrad</button>
+                </form>
+                <form action="/mp3/conradbitchlouder">
+                    <button class="btn" type="submit">Conradbitch5</button>
+                </form>
+            </div>
+
+            </div>
+        </div>
+
+
+        
+        <div id="popup">
+            <!-- Modal content -->
+            <div class="popup-content">
+        
+                <h1>Select channel:</h1>
+                <select name="channelselect" id="channelselect">
+                  <option value="auto">Auto</option>
+                    {% for channel in voice_channels %}
+                    <option value="{{ channel }}">{{ channel }}</option>
+                    {% endfor %}
+                </select><br>
+                <button id="save">
+                    Save
+                </button>
+            </div>
+        </div>
+        
+    </body>
+    
+
+    <script>
+      var modal = document.getElementById("popup");
+        var cnl = document.getElementById("cnl");
+        var select = document.getElementById("channelselect")
+        var open = document.getElementById("change-cnl");
+        var close = document.getElementById("save");   
+
+        open.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        close.onclick = function() {
+            modal.style.display = "none";
+            var i = select.selectedIndex;
+            var value = select.options[i].text;
+            console.log(i);
+            cnl.innerHTML =  value;
+
+            console.log(i);
+
+          var xml = new XMLHttpRequest();
+          xml.open('GET', 'https://marvinbruh-dashboard.jannismcmak.repl.co/selectchannel?i='+i, false)
+          xml.send(null);
+        }
+
+      function saveChannel(){
+        var select = document.getElementById('channelselect');
+        var i = select.selectedIndex;
+        console.log(i);
+
+        var xml = new XMLHttpRequest();
+        xml.open('GET', 'https://marvinbruh-dashboard.jannismcmak.repl.co/selectchannel?i='+i, false)
+        xml.send(null);
+    }  
+
+
+    window.onload = (event) => {
+      var name = document.getElementById('username').textContent;
+      console.log("Logged in as " + name);
+      if(name == "None"){
+        alert('Unauthorized. Please log in')
+        window.location.href = "https://marvinbruh-dashboard.jannismcmak.repl.co/login";
+      }
+    };
+
+    </script>
+</html>
+

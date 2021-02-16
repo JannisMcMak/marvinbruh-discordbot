@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Livvic:wght@100;700&display=swap" rel="stylesheet">
+        <style>
+            html {
+                font-family: Livvic;
+            }
+
+            body {
+                text-align: center;
+                background-color: rgb(34, 40, 54);
+                color: white;
+            }
+
+            img {
+                border: 2px solid white;
+                border-radius: 50%;
+
+            }
+
+            .content {
+                margin-top: 15%;
+            }
+
+            .footer {
+                margin-top: 28%;
+                color: rgba(255, 255, 255, 0.514);
+            }
+
+            button {
+                all: unset;
+                background: transparent;
+                border: 2px solid white;
+                padding-right: 20px;
+                padding-left: 20px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border-radius: 50px;
+                font-size: 20px;
+                cursor: pointer;
+                color: white;
+
+                -webkit-transition: all 0.4s;
+                -moz-transition: all 0.4s;
+                transition: all 0.4s;
+            }
+
+            button:hover{
+                color: rgb(34, 40, 54);
+                background-color:white;
+
+            }
+            button:after{
+                content: '';
+            }
+        </style>
+
+        <title>Dashboard Login</title>
+    </head>
+
+    <body>
+        <div class="content">
+            <img
+                src="https://lh3.googleusercontent.com/VURk-C55sJWLc1RRv5fYutc0iWS0PzNKHJjKxhp8cexXcRMucXcCjPZQxp5yxAcHBSm5pg=s85">
+
+            <h1>Official webview for MarvinBruh Bot</h1>
+            <button onclick="window.location.href='{{ url }}';">
+              Login with Discord
+            </button>
+        </div>
+    </body>
+    <div class="footer">by JannisMcMak</div>
+
+</html>
