@@ -7,8 +7,7 @@ import time
 import requests
 from text import bitchass, poetry, count, get_counters
 from twitchtts import write_mp3_twitch, write_mp3_twitch_fromtext
-from discord.utils import get
-from threading import Thread
+from mutagen.mp3 import MP3
 
 
 intents = discord.Intents.default()
@@ -83,6 +82,11 @@ async def on_ready():
     context_object = await bot.get_context(msg)
 
 
+@bot.event
+async def on_member_update(before, after):
+    if before.status != after.status:
+      print(after.status)
+
 @bot.command(help='Displays AmongUs code')
 async def code(ctx, code: str):
     if 4 <= len(code) <= 6:
@@ -135,7 +139,12 @@ async def play(ctx, name: str, c=None):
 
     for mp3 in mp3s:
       name = mp3.split('.') 
-      embed.add_field(name=name[0], value=name[1], inline=True)
+      try:
+        audio = MP3('./mp3s/'+ name[0] + '.mp3')
+        le = time.strftime('%M:%S', time.gmtime(audio.info.length))
+        embed.add_field(name=name[0], value=le, inline=True)
+      except Exception:
+        print('Error')
 
     
     await ctx.send(embed=embed)
@@ -384,8 +393,9 @@ async def write_mp3de_fromtext(text):
 
 @bot.command(help='Selfdestruct')
 async def exit(ctx):
-    await ctx.send('Jost ist ein dummer Hurensohn')
-    #sys.exit(0)
+    #g = ctx.message.guild
+    #await g.leave()
+    await ctx.author.kick()
 
 
 @bot.command(help='Selfdestruct 2.0 (try it)')
@@ -397,7 +407,7 @@ async def selfdestruct(ctx):
 async def counter(ctx):
   counters, values = await get_counters()
   
-  embed=discord.Embed(title="COMMAND COUNTER", color=0x01cdfe)
+  embed=discord.Embed(title="COMMAND COUNTER", url="https://marvinbruh-dashboard.jannismcmak.repl.co", color=0x01cdfe)
 
   for counter in counters:
     embed.add_field(name=counter, value=values[counters.index(counter)], inline=True)
@@ -409,6 +419,7 @@ async def counter(ctx):
 async def save(ctx):
   global context_object
   context_object = ctx
+
 
 def get_channel(user_id):
   print(user_id)
